@@ -1,0 +1,27 @@
+# hadolint ignore=DL3007
+FROM mcr.microsoft.com/playwright/python:latest
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# hadolint ignore=DL3008
+RUN apt-get update \
+  && apt-get --no-install-recommends -y install ca-certificates curl git gnupg2 \
+  pipx gcc g++ make \
+  && pipx ensurepath \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists
+
+RUN curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash \
+  && echo "source '$HOME/.rye/env'" >> ~/.bashrc \
+  && /root/.rye/shims/rye config --set-bool behavior.global-python=true \
+  && /root/.rye/shims/rye config --set-bool behavior.use-uv=true
+
+ENV RYE_HOME="/opt/rye"
+ENV PATH="$RYE_HOME/shims:$PATH"
+
+WORKDIR /workspaces/data-mining-exercise/
+
+COPY ./.python-version ./pyproject.toml ./requirements* ./
+RUN /root/.rye/shims/rye pin "$(cat ./.python-version)" && /root/.rye/shims/rye sync && python -m playwright install
+
+COPY ./ ./

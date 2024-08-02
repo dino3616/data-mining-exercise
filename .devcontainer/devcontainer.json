@@ -1,0 +1,22 @@
+{
+  "name": "data-mining-exercise",
+  "workspaceFolder": "/workspaces/data-mining-exercise/",
+  "dockerComposeFile": ["../docker/docker-compose.development.yaml"],
+  "service": "app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "adam-bender.commit-message-editor",
+        "charliermarsh.ruff",
+        "eamodio.gitlens",
+        "EditorConfig.EditorConfig",
+        "esbenp.prettier-vscode",
+        "ms-python.mypy-type-checker",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "tamasfe.even-better-toml",
+        "VisualStudioExptTeam.vscodeintellicode"
+      ]
+    }
+  }
+}

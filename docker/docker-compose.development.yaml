@@ -1,0 +1,11 @@
+services:
+  app:
+    container_name: data-mining-exercise-app
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.development
+    volumes:
+      - type: bind
+        source: ../
+        target: /workspaces/data-mining-exercise/
+    tty: true

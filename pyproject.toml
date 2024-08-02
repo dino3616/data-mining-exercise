@@ -1,0 +1,24 @@
+[project]
+name = "data-mining-exercise"
+version = "0.1.0"
+authors = [
+  { name = "shio", email = "85730998+dino3616@users.noreply.github.com" },
+]
+dependencies = [
+  "anyio>=4.4.0",
+  "janome>=0.5.0",
+  "playwright>=1.45.1",
+  "wordcloud>=1.9.3",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[tool.rye]
+managed = true
+dev-dependencies = ["lefthook>=0.1.2", "mypy>=1.11.1", "ruff>=0.5.3"]
+
+[tool.rye.scripts]
+check = { chain = ["lint", "lint:type", "fmt"] }
+"lint" = "ruff check ./ --diff"
+"lint:type" = "mypy ./ --explicit-package-bases"
+"fmt" = "ruff fmt ./"
